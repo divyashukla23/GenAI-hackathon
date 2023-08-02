@@ -4,7 +4,7 @@
 
 The major goal of this program is to reconcile resources in the cloud that have drifted from their original state. It does so by generating Terraform import commands that help align the actual state of the resources with the defined state in Terraform. This ensures that the configuration management is accurate and reflects the real-world state of the resources.
 
-## Overview for Non-Technical Readers
+## Overview
 
 Imagine you have a blueprint (plan) that describes how a building should look, but over time, changes have been made to the building that are not reflected in the blueprint. This program serves as a tool to update the blueprint to match the actual state of the building.
 
@@ -35,3 +35,7 @@ This tool is useful for maintaining consistency and accuracy in managing cloud r
 ---
 
 Feel free to modify or expand this README as needed to match your specific requirements and context!
+
+---
+
+Made with ❤️ by **GenDev Squad**
