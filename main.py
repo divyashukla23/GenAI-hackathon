@@ -16,7 +16,7 @@ def generate_terraform_import_commands(json_file_path):
                 if resource_id and resource_type:
                     # Split the resource_type to get the provider and resource name
                     provider, _, resource_name = resource_type.partition("_")
-                    module_name = f"resource {idx}"
+                    module_name = f"resource{idx}"
                     import_command = f"terraform import {provider}.{resource_name}.{module_name} {resource_id}"
                     print(import_command)
                 else:
