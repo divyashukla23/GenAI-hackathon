@@ -42,20 +42,21 @@ def generate_terraform_import_commands(json_file_path):
     except json.JSONDecodeError:
         print("Error: Invalid JSON format.")
 
-# Example usage:
+def import_terraform_state():
+    # Path to the shell script
+    script_path = "./command.sh"
+
+    # Execute the shell script
+    result = subprocess.run([script_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # Check if the script ran successfully
+    if result.returncode == 0:
+        print('Shell script ran successfully.')
+        print('Output:', result.stdout.decode())
+    else:
+        print('Shell script failed.')
+        print('Error:', result.stderr.decode())
+
 json_file_path = "result.json"
 generate_terraform_import_commands(json_file_path)
-
-# Path to the shell script
-script_path = "./command.sh"
-
-# Execute the shell script
-result = subprocess.run([script_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-# Check if the script ran successfully
-if result.returncode == 0:
-    print('Shell script ran successfully.')
-    print('Output:', result.stdout.decode())
-else:
-    print('Shell script failed.')
-    print('Error:', result.stderr.decode())
+import_terraform_state()
