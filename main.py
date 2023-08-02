@@ -14,11 +14,11 @@ def generate_terraform_import_commands(json_file_path):
                 resource_id = resource.get("id")
                 resource_type = resource.get("type")
                 if resource_id and resource_type:
-                    # Split the resource_type to get the provider and resource name
-                    provider, _, resource_name = resource_type.partition("_")
                     module_name = f"resource{idx}"
-                    import_command = f"terraform import {provider}.{resource_name}.{module_name} {resource_id}"
+                    import_command = f"terraform import {resource_type}.{module_name} {resource_id}"
+                    tf_block = f"resource \"{resource_type}\" \"{module_name}\"{{}}"
                     print(import_command)
+                    print(tf_block)
                 else:
                     print(f"Skipping invalid resource: {resource}")
 
