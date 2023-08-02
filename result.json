@@ -1,0 +1,16 @@
+{
+	"unmanaged": [
+		{
+			"id": "ami-036f08a3fadcb8dc1",
+			"type": "aws_ami"
+		},
+		{
+			"id": "ami-04bbae7385a7f5b12",
+			"type": "aws_ami"
+		},
+		{
+			"id": "ami-04bbae7385a7f5b12",
+			"type": "aws_ami"
+		}
+	]
+}
