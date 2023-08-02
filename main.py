@@ -9,27 +9,30 @@ def generate_terraform_import_commands(json_file_path):
 
         if "unmanaged" in data:
             unmanaged_resources = data["unmanaged"]
-            commands = []  # To store the Terraform import commands
+            terraform_import_commands = []
+            terraform_resource_blocks = []
 
             for idx, resource in enumerate(unmanaged_resources, start=1):
                 resource_id = resource.get("id")
                 resource_type = resource.get("type")
                 if resource_id and resource_type:
                     module_name = f"resource{idx}"
-                    import_command = f"terraform import {resource_type}.{module_name} {resource_id}"
-                    tf_block = f"resource \"{resource_type}\" \"{module_name}\"{{}}"
-                    commands.append(import_command)
-                    commands.append(tf_block)
+                    terraform_import_command = f"terraform import {resource_type}.{module_name} {resource_id}"
+                    terraform_resource_block = f"resource \"{resource_type}\" \"{module_name}\"{{}}"
+                    terraform_import_commands.append(terraform_import_command)
+                    terraform_resource_blocks.append(terraform_resource_block)
                 else:
                     print(f"Skipping invalid resource: {resource}")
 
             # Save the Terraform import commands to a bash script file
             with open("command.sh", "w") as bash_file:
-                for command in commands:
-                    bash_file.write(command + "\n")
-            # Print the commands to the console (optional)
-            # for command in commands:
-            #     print(command)
+                for terraform_import_command in terraform_import_commands:
+                    bash_file.write(terraform_import_command + "\n")
+
+            # Save terraform resource blocks
+            with open("main.tf", "w") as terraform_resource_file:
+                for terraform_resource_block in terraform_resource_blocks:
+                    terraform_resource_file.write(terraform_resource_block + "\n")
 
     except FileNotFoundError:
         print("Error: JSON file not found.")
