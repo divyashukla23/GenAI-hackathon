@@ -1,0 +1,6 @@
+fileignoreconfig:
+- filename: .gitignore
+  checksum: a9be4377bfe2f955da7a5324cc6203f78282ef8f33531a6332d67141c4b00b66
+- filename: .terraform.lock.hcl
+  checksum: 50fc75b6bef74dde5978ce74dfd7d389d42e37aa4b4bc7aa788b5b3e56a7a396
+version: "1.0"
