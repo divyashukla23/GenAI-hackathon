@@ -2,6 +2,8 @@
 # # Input: JSON(results.json)
 # # Output: terraform import resource_name.module_name id
 import json
+import subprocess
+
 def generate_terraform_import_commands(json_file_path):
     try:
         with open(json_file_path, 'r') as file:
@@ -26,6 +28,7 @@ def generate_terraform_import_commands(json_file_path):
 
             # Save the Terraform import commands to a bash script file
             with open("command.sh", "w") as bash_file:
+                bash_file.write("#!/bin/bash" + "\n")
                 for terraform_import_command in terraform_import_commands:
                     bash_file.write(terraform_import_command + "\n")
 
@@ -42,3 +45,17 @@ def generate_terraform_import_commands(json_file_path):
 # Example usage:
 json_file_path = "result.json"
 generate_terraform_import_commands(json_file_path)
+
+# Path to the shell script
+script_path = "./command.sh"
+
+# Execute the shell script
+result = subprocess.run([script_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+# Check if the script ran successfully
+if result.returncode == 0:
+    print('Shell script ran successfully.')
+    print('Output:', result.stdout.decode())
+else:
+    print('Shell script failed.')
+    print('Error:', result.stderr.decode())
