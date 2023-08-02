@@ -3,6 +3,7 @@
 # # Output: terraform import resource_name.module_name id
 import json
 import subprocess
+import os
 
 def generate_terraform_import_commands(json_file_path):
     try:
@@ -29,6 +30,7 @@ def generate_terraform_import_commands(json_file_path):
             # Save the Terraform import commands to a bash script file
             with open("command.sh", "w") as bash_file:
                 bash_file.write("#!/bin/bash" + "\n")
+                bash_file.write("terraform init" + "\n")
                 for terraform_import_command in terraform_import_commands:
                     bash_file.write(terraform_import_command + "\n")
 
@@ -57,6 +59,21 @@ def import_terraform_state():
         print('Shell script failed.')
         print('Error:', result.stderr.decode())
 
+def cleanup_files():
+    files_to_delete = ['command.sh', 'main.tf']
+
+    for file in files_to_delete:
+        try:
+            os.remove(file)
+            print(f'{file} has been deleted successfully.')
+        except FileNotFoundError:
+            print(f'{file} does not exist.')
+        except PermissionError:
+            print(f'Permission denied when trying to delete {file}.')
+        except Exception as e:
+            print(f'An error occurred while trying to delete {file}: {e}')
+
 json_file_path = "result.json"
 generate_terraform_import_commands(json_file_path)
 import_terraform_state()
+cleanup_files()
