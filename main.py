@@ -73,6 +73,20 @@ def cleanup_files():
         except Exception as e:
             print(f'An error occurred while trying to delete {file}: {e}')
 
+def merge_files(file1, file2, insert_line):
+    # Read the files
+    with open(file1, 'r') as f1, open(file2, 'r') as f2:
+        lines1 = f1.readlines()
+        lines2 = f2.readlines()
+
+    # Insert the lines from the second file into the first
+    lines1[insert_line:insert_line] = lines2
+
+    # Join all the lines together into a single string
+    result = ''.join(lines1)
+
+    return result
+
 json_file_path = "result.json"
 generate_terraform_import_commands(json_file_path)
 import_terraform_state()
