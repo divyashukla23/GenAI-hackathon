@@ -4,6 +4,7 @@
 import json
 import subprocess
 import os
+import openai
 
 def generate_terraform_import_commands(json_file_path):
     try:
@@ -88,6 +89,23 @@ def merge_files(file1, file2, insert_line):
     return result
 
 json_file_path = "result.json"
-generate_terraform_import_commands(json_file_path)
-import_terraform_state()
-cleanup_files()
+# generate_terraform_import_commands(json_file_path)
+#import_terraform_state()
+
+file1 = "prompt.txt"
+file2 = "terraform.tfstate"
+insert_line = 112
+
+prompt = merge_files(file1, file2, insert_line)
+
+# print(prompt)
+
+# Load your API key from an environment variable or secret management service
+
+# openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": "${prompt}"}])
+
+# print(chat_completion)
+
+# cleanup_files()

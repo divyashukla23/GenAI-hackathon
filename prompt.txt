@@ -1,0 +1,123 @@
+Question1:
+This is the state file
+
+"""
+{
+  "version": 4,
+  "terraform_version": "1.5.2",
+  "serial": 29,
+  "lineage": "67950bde-f082-895d-6c6d-be48ffee58b9",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "state_bucket",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::harness-infrastructure-state-bucket",
+            "bucket": "harness-infrastructure-state-bucket",
+            "bucket_domain_name": "harness-infrastructure-state-bucket.s3.amazonaws.com",
+            "bucket_prefix": "",
+            "bucket_regional_domain_name": "harness-infrastructure-state-bucket.s3.ap-south-1.amazonaws.com",
+            "cors_rule": [],
+            "force_destroy": false,
+            "grant": [
+              {
+                "id": "cbd8a4f1a99c369bcf2033a98852385938593ccd5b38e83f1b17ebc93a33de77",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z11RGJOFQNVJUP",
+            "id": "harness-infrastructure-state-bucket",
+            "lifecycle_rule": [],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "",
+            "region": "ap-south-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": false
+                  }
+                ]
+              }
+            ],
+            "tags": {
+              "environment": "beach",
+              "name": "harness-infrastructure-state-bucket"
+            },
+            "tags_all": {
+              "environment": "beach",
+              "name": "harness-infrastructure-state-bucket"
+            },
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": false,
+                "mfa_delete": false
+              }
+            ],
+            "website": [],
+            "website_domain": null,
+            "website_endpoint": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19"
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
+
+"""
+
+You are a skilled Devops engineer. Your job is to convert the state file into the terraform code.
+Generate the code and give me output in JSON format.
+
+{
+"code": "actual code"
+}
+
+Replace value of "code" key by actual code you generate. Please generate valid JSON.
+
+Answer1:
+{
+  "code": "provider \"aws\" {\n  region = \"ap-south-1\"\n}\n\nresource \"aws_s3_bucket\" \"state_bucket\" {\n  bucket = \"harness-infrastructure-state-bucket\"\n  acl    = null\n\n  server_side_encryption_configuration {\n    rule {\n      apply_server_side_encryption_by_default {\n        sse_algorithm = \"AES256\"\n      }\n    }\n  }\n\n  grant {\n    id          = \"cbd8a4f1a99c369bcf2033a98852385938593ccd5b38e83f1b17ebc93a33de77\"\n    permissions = [\"FULL_CONTROL\"]\n    type        = \"CanonicalUser\"\n  }\n\n  tags = {\n    environment = \"beach\"\n    name        = \"harness-infrastructure-state-bucket\"\n  }\n}"
+}
+
+Question2:
+Here is another state file
+"""
+
+"""
+You are a skilled Devops engineer. Your job is to convert the state file into the terraform code.
+Generate the code and give me output in JSON format.
+
+{
+"code": "actual code"
+}
+
+Replace value of "code" key by actual code you generate. Please generate valid JSON.
+
+Answer2:
