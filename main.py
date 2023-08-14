@@ -49,6 +49,7 @@ def import_terraform_state():
     # Path to the shell script
     script_path = "./command.sh"
 
+    os.chmod(script_path, os.stat(script_path).st_mode | 0o111)
     # Execute the shell script
     result = subprocess.run([script_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -89,8 +90,8 @@ def merge_files(file1, file2, insert_line):
     return result
 
 json_file_path = "result.json"
-# generate_terraform_import_commands(json_file_path)
-#import_terraform_state()
+generate_terraform_import_commands(json_file_path)
+import_terraform_state()
 
 file1 = "prompt.txt"
 file2 = "terraform.tfstate"
@@ -102,10 +103,10 @@ prompt = merge_files(file1, file2, insert_line)
 
 # Load your API key from an environment variable or secret management service
 
-# openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": "${prompt}"}])
+chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": prompt}])
 
-# print(chat_completion)
+print(chat_completion)
 
-# cleanup_files()
+cleanup_files()
