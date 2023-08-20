@@ -1,0 +1,7 @@
+aws_iam_access_key.AKIAWXFKS2HA74C4X2US
+aws_iam_policy_attachment.HackathonAdmin-arn:aws:iam::aws:policy/AdministratorAccess
+aws_iam_role.HackathonAdmin
+aws_iam_user.HackathonUser
+aws_iam_user_policy.HackathonUser:Assume-admin-role-policy
+aws_network_acl_rule.nacl-1437527555
+aws_network_acl_rule.nacl-2879761416
