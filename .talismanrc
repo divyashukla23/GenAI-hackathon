@@ -8,5 +8,5 @@ fileignoreconfig:
 - filename: infrastructure/state-bucket/.terraform.lock.hcl
   checksum: a32462aab7b116cded4d8466dedd18f0cdc20f9a561ae269ed71140fad20a76c
 - filename: main.py
-  checksum: 3067dd4d37c3bf9c4f6c7b0026b741b63e638b0fcb2334a7a21094a34ba0a383
+  checksum: 65b0b46987fbedde39e078ba2ef8297bbf51e9b4fd3abba30d6966258b927410
 version: "1.0"

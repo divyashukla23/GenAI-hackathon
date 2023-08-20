@@ -5,6 +5,7 @@ import json
 import subprocess
 import os
 import openai
+import re
 
 def generate_terraform_import_commands(json_file_path):
     try:
@@ -75,31 +76,35 @@ def cleanup_files():
         except Exception as e:
             print(f'An error occurred while trying to delete {file}: {e}')
 
-def merge_files(file1, file2, insert_line):
-    # Read the files
-    with open(file1, 'r') as f1, open(file2, 'r') as f2:
-        lines1 = f1.readlines()
-        lines2 = f2.readlines()
-
-    # Insert the lines from the second file into the first
-    lines1[insert_line:insert_line] = lines2
-
-    # Join all the lines together into a single string
-    result = ''.join(lines1)
-
-    return result
-
 json_file_path = "result.json"
 generate_terraform_import_commands(json_file_path)
 import_terraform_state()
 
-file1 = "prompt.txt"
-file2 = "terraform.tfstate"
-insert_line = 112
+# Read the contents of the main prompt file
+with open("prompt.txt", "r") as file:
+    prompt_lines = file.readlines()
 
-prompt = merge_files(file1, file2, insert_line)
+# File paths and their respective insertion line numbers
+files_info = {
+    "infrastructure/main.tf": 160,
+    "infrastructure/providers.tf": 165,
+    "infrastructure/variables.tf": 170,
+    "infrastructure/terraform.tfvars": 175,
+    "infrastructure/outputs.tf": 180,
+    "terraform.tfstate": 151
+}
 
-# print(prompt)
+# Sorting the file paths based on their insertion line numbers in descending order
+sorted_files_info = sorted(files_info.items(), key=lambda x: x[1], reverse=True)
+
+# Insert the contents of each file at the specified line number in descending order
+for file_path, line_num in sorted_files_info:
+    with open(file_path, "r") as file:
+        content = file.readlines()
+    # Adjusting for 0-indexing in Python lists
+    prompt_lines[line_num-1:line_num-1] = content
+
+prompt = ''.join(prompt_lines)
 
 # Load your API key from an environment variable or secret management service
 
@@ -107,17 +112,16 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": prompt}])
 
-print(chat_completion)
-
-
 data = json.loads(chat_completion.choices[0].message["content"])
 
-# Extracting the value of "code"
-actual_code = data.get("code", "")
+# Create 'output' directory if it doesn't exist
+output_dir = 'output'
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
 
-# Writing the code to 'output-raw.tf'
-with open("output-raw.tf", "w") as f:
-    f.write(actual_code)
-
+# Write the contents of each file from the JSON to actual files in 'output' directory
+for filename, content in data.items():
+    with open(os.path.join(output_dir, filename), 'w') as file:
+        file.write(content)
 
 cleanup_files()
