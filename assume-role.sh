@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# unset previously expired sessions
+unset AWS_ACCESS_KEY_ID
+unset AWS_SECRET_ACCESS_KEY
+unset AWS_SESSION_TOKEN
+
 # Assuming the role and capturing the JSON output
 output=$(aws sts assume-role --role-arn arn:aws:iam::462066733505:role/HackathonAdmin --role-session-name TerraformSession)
 

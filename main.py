@@ -109,4 +109,15 @@ chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[
 
 print(chat_completion)
 
+
+data = json.loads(chat_completion.choices[0].message["content"])
+
+# Extracting the value of "code"
+actual_code = data.get("code", "")
+
+# Writing the code to 'output-raw.tf'
+with open("output-raw.tf", "w") as f:
+    f.write(actual_code)
+
+
 cleanup_files()
