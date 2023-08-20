@@ -63,7 +63,7 @@ def import_terraform_state():
         print('Error:', result.stderr.decode())
 
 def cleanup_files():
-    files_to_delete = ['command.sh', 'main.tf']
+    files_to_delete = ['command.sh', 'main.tf', 'terraform.tfstate', 'result.json', 'infrastructure/result.json']
 
     for file in files_to_delete:
         try:

@@ -10,6 +10,21 @@ Imagine you have a blueprint (plan) that describes how a building should look, b
 
 In the context of cloud computing, the "blueprint" is a configuration file that describes how resources (like virtual machines, databases, etc.) should be configured. Sometimes, these resources might be changed manually or by other means, leading to a difference between the actual state and the blueprint. This program helps to align them back.
 
+## Prerequisites
+
+Before using the Terraform State Importer, make sure you have the following programs and permissions set up:
+
+1. **Python 3**: You should have Python 3 installed on your system. You can download it from the [official Python website](https://www.python.org/downloads/).
+
+2. **Terraform**: Install Terraform on your system by following the instructions in the [Terraform documentation](https://learn.hashicorp.com/tutorials/terraform/install-cli).
+
+3. **AWS CLI**: You should have the AWS Command Line Interface (CLI) installed and configured with valid credentials to access your AWS account.
+
+4. **IAM Role**: Create an IAM role named `HackathonAdmin` in your AWS account with the necessary permissions. This role will be assumed by the `assume-role.sh` script. Alternatively, if you already have IAM role, update ARN in `assume-role.sh`
+
+## How to Use
+Simply run `./launch.sh` in your terminal, and it will take care of setting up and executing the entire process.
+
 ## How the Program Works
 
 1. **Reading the Drifted State**: The program takes a JSON file that lists the resources that have drifted from their original state. This information includes what the resources are and how they have changed.
