@@ -110,7 +110,7 @@ prompt = ''.join(prompt_lines)
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": prompt}])
+chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": prompt}],temperature=0.0)
 
 data = json.loads(chat_completion.choices[0].message["content"])
 
