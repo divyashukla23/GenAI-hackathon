@@ -86,12 +86,12 @@ with open("prompt.txt", "r") as file:
 
 # File paths and their respective insertion line numbers
 files_info = {
-    "infrastructure/main.tf": 160,
-    "infrastructure/providers.tf": 165,
-    "infrastructure/variables.tf": 170,
-    "infrastructure/terraform.tfvars": 175,
-    "infrastructure/outputs.tf": 180,
-    "terraform.tfstate": 151
+    "infrastructure/main.tf": 167,
+    "infrastructure/providers.tf": 172,
+    "infrastructure/variables.tf": 177,
+    "infrastructure/terraform.tfvars": 182,
+    "infrastructure/outputs.tf": 187,
+    "terraform.tfstate": 158
 }
 
 # Sorting the file paths based on their insertion line numbers in descending order
@@ -110,8 +110,9 @@ prompt = ''.join(prompt_lines)
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": prompt}],temperature=0.0)
+chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo-16k", messages=[{"role": "user", "content": prompt}],temperature=0.0)
 
+print(chat_completion)
 data = json.loads(chat_completion.choices[0].message["content"])
 
 # Create 'output' directory if it doesn't exist

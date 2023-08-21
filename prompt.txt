@@ -127,23 +127,28 @@ output "owner" {
 }
 """
 
-Generate the code and give me output in following JSON format
+Generate the code using state file and take care of these things when you generate
+Declare variables for hardcoded configuration values in main.tf of generated code by following exisiting coding practise. For example, s3 bucket name is stored in variable bucket_name.
+Generate variables in variables.tf, put values in terraform.tfvars and use them in main.tf
+
+and give me output in following JSON format
 
 {
-"file-1": "code for the file1"
-"file-2": "code for the file2"
-"file-3": "code for the file3"
+"variables.tf" : "code",
+"terraform.tfvars" : "code",
+"main.tf": "code",
+"providers.tf" : "code",
+"outputs.tf" : "code"
 }
 
-Give resources meaningful names
 
 Answer1:
 {
-  "main.tf": "resource \"aws_s3_bucket\" \"state_bucket\" {\n  bucket = var.bucket_name\n  tags = {\n    name        = var.bucket_name\n    environment = var.environment\n    owner       = var.owner\n  }\n}\n\nresource \"aws_s3_bucket_public_access_block\" \"s3_bucket_access_block\" {\n  bucket                  = aws_s3_bucket.state_bucket.bucket\n  block_public_acls       = true\n  block_public_policy     = true\n  ignore_public_acls      = true\n  restrict_public_buckets = true\n}",
-  "providers.tf": "terraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 4.0\"\n    }\n  }\n}\n\nprovider \"aws\" {\n  region = var.region\n}",
-  "variables.tf": "variable \"bucket_name\" {\n  description = \"The name of the S3 bucket.\"\n  type        = string\n}\n\nvariable \"region\" {\n  description = \"The AWS region where resources will be created.\"\n  type        = string\n}\n\nvariable \"environment\" {\n  description = \"The environment where the infrastructure is deployed.\"\n  type        = string\n}\n\nvariable \"owner\" {\n  description = \"The owner of the infrastructure.\"\n  type        = string\n}",
-  "terraform.tfvars": "bucket_name     = \"harness-infrastructure-state-bucket\"\nregion          = \"ap-south-1\"\nenvironment     = \"beach\"\nowner           = \"poonam-shelke\"",
-  "outputs.tf": "output \"bucket_arn\" {\n  description = \"The ARN of the created S3 bucket.\"\n  value       = aws_s3_bucket.state_bucket.arn\n}\n\noutput \"bucket_id\" {\n  description = \"The ID of the created S3 bucket.\"\n  value       = aws_s3_bucket.state_bucket.id\n}\n\noutput \"bucket_region\" {\n  description = \"The region where the S3 bucket resides.\"\n  value       = var.region\n}\n\noutput \"environment\" {\n  description = \"The environment where the infrastructure is deployed.\"\n  value       = var.environment\n}\n\noutput \"owner\" {\n  description = \"The owner of the infrastructure.\"\n  value       = var.owner\n}"
+  "main.tf": "resource \"aws_s3_bucket\" \"state_bucket\" {\n  bucket = var.bucket_name\n\n  tags = {\n    name        = var.bucket_name\n    environment = var.environment\n    owner       = var.owner\n  }\n}\n\nresource \"aws_s3_bucket_public_access_block\" \"state_bucket_public_access\" {\n  bucket = aws_s3_bucket.state_bucket.id\n\n  block_public_acls       = var.block_public_acls\n  block_public_policy     = var.block_public_policy\n  ignore_public_acls      = var.ignore_public_acls\n  restrict_public_buckets = var.restrict_public_buckets\n}\n",
+  "providers.tf": "terraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 4.0\"\n    }\n  }\n}\n\nprovider \"aws\" {\n  region = var.region\n}\n",
+  "variables.tf": "variable \"bucket_name\" {\n  description = \"The name of the S3 bucket.\"\n  type        = string\n}\n\nvariable \"region\" {\n  description = \"The AWS region where resources will be created.\"\n  type        = string\n}\n\nvariable \"environment\" {\n  description = \"The environment where the infrastructure is deployed.\"\n  type        = string\n}\n\nvariable \"owner\" {\n  description = \"The owner of the infrastructure.\"\n  type        = string\n}\n\nvariable \"block_public_acls\" {\n  description = \"Whether to block public ACLs for the S3 bucket.\"\n  type        = bool\n  default     = true\n}\n\nvariable \"block_public_policy\" {\n  description = \"Whether to block public bucket policies for the S3 bucket.\"\n  type        = bool\n  default     = true\n}\n\nvariable \"ignore_public_acls\" {\n  description = \"Whether to ignore public ACLs for the S3 bucket.\"\n  type        = bool\n  default     = true\n}\n\nvariable \"restrict_public_buckets\" {\n  description = \"Whether to restrict public access to buckets for the S3 bucket.\"\n  type        = bool\n  default     = true\n}\n",
+  "terraform.tfvars": "bucket_name     = \"harness-infrastructure-state-bucket\"\nregion          = \"ap-south-1\"\nenvironment     = \"beach\"\nowner           = \"poonam-shelke\"\nblock_public_acls       = true\nblock_public_policy     = true\nignore_public_acls      = true\nrestrict_public_buckets = true\n",
+  "outputs.tf": "output \"bucket_arn\" {\n  description = \"The ARN of the created S3 bucket.\"\n  value       = aws_s3_bucket.state_bucket.arn\n}\n\noutput \"bucket_id\" {\n  description = \"The ID of the created S3 bucket.\"\n  value       = aws_s3_bucket.state_bucket.id\n}\n\noutput \"bucket_region\" {\n  description = \"The region where the S3 bucket resides.\"\n  value       = var.region\n}\n\noutput \"environment\" {\n  description = \"The environment where the infrastructure is deployed.\"\n  value       = var.environment\n}\n\noutput \"owner\" {\n  description = \"The owner of the infrastructure.\"\n  value       = var.owner\n}\n"
 }
 
 Question2:
@@ -182,14 +187,19 @@ file outputs.tf
 
 """
 
-Generate the code and give me output in following JSON format
+Generate the code using state file and take care of these things when you generate
+Declare variables for hardcoded configuration values in main.tf of generated code by following exisiting coding practise. For example, s3 bucket name is stored in variable bucket_name.
+Generate variables in variables.tf, put values in terraform.tfvars and use them in main.tf
+
+and give me output in following JSON format
 
 {
-"file-1": "code for the file1"
-"file-2": "code for the file2"
-"file-3": "code for the file3"
+"variables.tf" : "code",
+"terraform.tfvars" : "code",
+"main.tf": "code",
+"providers.tf" : "code",
+"outputs.tf" : "code"
 }
 
-Give resources meaningful names
 
 Answer2:
