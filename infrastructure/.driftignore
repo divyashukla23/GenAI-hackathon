@@ -1,7 +1,15 @@
-aws_iam_access_key.AKIAWXFKS2HA74C4X2US
-aws_iam_policy_attachment.HackathonAdmin-arn:aws:iam::aws:policy/AdministratorAccess
-aws_iam_role.HackathonAdmin
-aws_iam_user.HackathonUser
-aws_iam_user_policy.HackathonUser:Assume-admin-role-policy
-aws_network_acl_rule.nacl-1437527555
-aws_network_acl_rule.nacl-2879761416
+aws_cloudtrail.OrganizationTrailForInfoSec
+aws_iam_role.AWSReservedSSO_Owner_0347085511bce4aa
+aws_iam_role.AWSReservedSSO_PowerUser+IAM_5ff82540cd50b666
+aws_iam_role.OrganizationAccountAccessRole
+aws_iam_role.infosec-aqua-cspm
+aws_iam_role.tenableio-connector
+aws_network_acl_rule.nacl-2376695378
+aws_network_acl_rule.nacl-3728103995
+# aws_iam_access_key.AKIAWXFKS2HA74C4X2US
+# aws_iam_policy_attachment.HackathonAdmin-arn:aws:iam::aws:policy/AdministratorAccess
+# aws_iam_role.HackathonAdmin
+# aws_iam_user.HackathonUser
+# aws_iam_user_policy.HackathonUser:Assume-admin-role-policy
+# aws_network_acl_rule.nacl-1437527555
+# aws_network_acl_rule.nacl-2879761416
