@@ -47,7 +47,7 @@ file_mapping_dict = {
     "output/terraform.tfvars": "infrastructure/terraform.tfvars"
 }
 
-replace_files_using_dict(file_mapping_dict)
+# replace_files_using_dict(file_mapping_dict)
 
 
 if __name__ == "__main__":

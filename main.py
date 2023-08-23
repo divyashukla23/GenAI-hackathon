@@ -106,10 +106,12 @@ for file_path, line_num in sorted_files_info:
 
 prompt = ''.join(prompt_lines)
 
+print("Generated prompt for OpenAI API")
 # Load your API key from an environment variable or secret management service
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+print("Requesting code generation")
 chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo-16k", messages=[{"role": "user", "content": prompt}],temperature=0.0)
 
 print(chat_completion)
